@@ -81,6 +81,21 @@ addition to using the `loading-slider` component.
 * `endLoading`
 * `changeAttrs(attrs)`
 
+For example, your route might implement the service as follows: 
+
+    import Ember from 'ember';
+
+    export default Ember.Route.extend({
+      loadingSlider: Ember.inject.service(),
+
+      model() {
+        this.get('loadingSlider').startLoading();
+        return this.store.findAll('product').finally(()=> {
+          this.get('loadingSlider').endLoading();
+        });
+      }
+    });
+
 ## Authors
 
 * [Jerel Unruh](http://twitter.com/jerelunruh/)
